@@ -39,7 +39,7 @@ public class StartMenu implements ActionListener{
 
 		return startGUI;
 	}
-	@Override
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == startButton) {
 			ModeSelect.main(null);
