@@ -1,8 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class StartMenu {
+public class StartMenu implements ActionListener{
 	
 	JPanel startGUI;
+	JButton startButton;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -26,7 +29,21 @@ public class StartMenu {
 	public JPanel createContentPane() {
 		startGUI = new JPanel();
 		startGUI.setLayout(null);
+
+
+ 		startButton = new JButton("Start");
+        startButton.setLocation(130, 120);
+        startButton.setSize(80, 30);
+        startButton.addActionListener(this);
+        startGUI.add(startButton);
+
 		return startGUI;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == startButton) {
+			ModeSelect.main(null);
+		}
 	}
 	}
 
