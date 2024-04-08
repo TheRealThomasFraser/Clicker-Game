@@ -7,7 +7,7 @@ import java.util.Random;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class Mode1 extends JPanel implements ActionListener, MouseListener {
+public class Mode1Panel extends JPanel implements ActionListener, MouseListener {
 	private JPanel clickPanel, statPanel;
 	private JLabel score, time;
 	private Color colorList[] = { Color.cyan, Color.yellow, Color.green, Color.magenta, Color.orange, Color.red,
@@ -17,7 +17,7 @@ public class Mode1 extends JPanel implements ActionListener, MouseListener {
 	private Container cpane;
 	static Random random = new Random();
 
-	Mode1(Container cpane) {
+	Mode1Panel(Container cpane) {
 		this.cpane = cpane;
 
 		this.setLayout(null);
@@ -86,9 +86,10 @@ public class Mode1 extends JPanel implements ActionListener, MouseListener {
 			timeUpdate.start();
 		} else if (e.getSource() == timer) {
 			timer.stop();
-			this.setVisible(false);
-			cpane.add(new ModeSelect(cpane));
+			cpane.add(new SettingsPanel(cpane));
 			cpane.remove(this);
+			cpane.revalidate();
+			cpane.repaint();
 		}
 
 	}

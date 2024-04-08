@@ -7,7 +7,7 @@ import java.util.Random;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class Mode2 extends JPanel implements ActionListener, MouseListener {
+public class Mode2Panel extends JPanel implements ActionListener, MouseListener {
 	
 	private JPanel hoverPanel, statPanel;
 	private JLabel score, time;
@@ -18,7 +18,7 @@ public class Mode2 extends JPanel implements ActionListener, MouseListener {
 	private Container cpane;
 	static Random random = new Random();
 	
-	Mode2(Container cpane) {
+	Mode2Panel(Container cpane) {
 		
 		this.cpane = cpane;
 
@@ -74,9 +74,12 @@ add(statPanel);
 		}
 		else if(e.getSource() == timer) {
 			timer.stop();
-			this.setVisible(false);
-			cpane.add(new ModeSelect(cpane));
+			cpane.add(new ModeSelectPanel());
 			cpane.remove(this);
+			cpane.add(new SettingsPanel(cpane));
+			cpane.remove(this);
+			cpane.revalidate();
+			cpane.repaint();
 		}
 		
 		
