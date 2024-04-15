@@ -21,7 +21,7 @@ public class SettingsPanel extends JPanel implements ActionListener{
 	public SettingsPanel(Container cpane) {
 		
 		this.cpane = cpane;
-		this.setLayout(new GridLayout(3, 1));
+		this.setLayout(new GridLayout(3,1));
 		title = new JLabel("Settings", SwingConstants.CENTER);
 		title.setVisible(true);
 		this.add(title);
@@ -38,8 +38,7 @@ public class SettingsPanel extends JPanel implements ActionListener{
 		settingsContainer.setVisible(true);
 		this.add(settingsContainer);
 		playBtn = new JButton("Play");
-		playBtn.setBackground(Color.red);
-		playBtn.setBorderPainted(false);
+		playBtn.setFocusPainted(false);
 		playBtn.setOpaque(true);
 		playBtn.addActionListener(this);
 		playBtn.setVisible(true);
@@ -52,8 +51,11 @@ public class SettingsPanel extends JPanel implements ActionListener{
 	
 	public void startgame(int mode) {
 		cpane.removeAll();
+		int squares = ssp.getSquares();
+		Color[] colours = csp.getColours();
+		int timeVal = tsp.getTime();
 		if (mode == 1) {
-			Mode1Panel m1p = new Mode1Panel(cpane);
+			Mode1Panel m1p = new Mode1Panel(cpane, squares, colours, timeVal);
 			cpane.add(m1p);
 		}
 		else if (mode == 2) {

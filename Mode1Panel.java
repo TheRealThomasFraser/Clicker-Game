@@ -8,29 +8,31 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class Mode1Panel extends JPanel implements ActionListener, MouseListener {
-	private JPanel clickPanel, statPanel;
+	private JPanel statPanel;
+	private JPanel[] clickPanels;
 	private JLabel score, time;
-	private Color colorList[] = { Color.cyan, Color.yellow, Color.green, Color.magenta, Color.orange, Color.red,
-			Color.blue, Color.pink };
-	private int scoreVal, timeVal, randomX, randomY;
+	private Color colours[];
+	private int scoreVal, timeVal, randomX, randomY, squares;
 	private Timer timer, timeUpdate;
 	private Container cpane;
 	static Random random = new Random();
 
-	Mode1Panel(Container cpane) {
+	Mode1Panel(Container cpane, int squares, Color[] colours, int timeVal) {
+		this.colours = colours;
 		this.cpane = cpane;
-
+		this.squares = squares;
+		this.timeVal = timeVal;
+		clickPanels = new JPanel[squares];
 		this.setLayout(null);
 		this.setSize(575, 575);
 		this.setBackground(Color.black);
 		randomX = random.nextInt(501);
 		randomY = random.nextInt(501);
 		scoreVal = 0;
-		timeVal = 60;
 
 		statPanel = new JPanel();
 		statPanel.setLayout(null);
-		statPanel.setSize(100, 100);
+		statPanel.setSize(200, 100);
 		statPanel.setBackground(Color.black);
 		add(statPanel);
 
@@ -45,22 +47,28 @@ public class Mode1Panel extends JPanel implements ActionListener, MouseListener 
 		time = new JLabel();
 		time.setForeground(Color.white);
 		time.setLocation(0, 50);
-		time.setSize(100, 50);
+		time.setSize(200, 50);
 		time.setFont(new Font("Serif", Font.PLAIN, 20));
+		if (timeVal == 0) {
+			time.setText("Time: Unlimited");
+		}
+		else {
 		time.setText("Time: " + timeVal);
-		statPanel.add(time);
-
-		timer = new Timer(60000, this);
+		timer = new Timer((timeVal * 1000), this);
 		timer.start();
 		timeUpdate = new Timer(1000, this);
 		timeUpdate.start();
+		}
+		statPanel.add(time);
 
-		clickPanel = new JPanel();
-		clickPanel.setBackground(Color.yellow);
-		clickPanel.setLocation(randomX, randomY);
-		clickPanel.setSize(50, 50);
-		clickPanel.addMouseListener(this);
-		add(clickPanel);
+		for (int i=0; i < squares; i++) {
+		clickPanels[i] = new JPanel();
+		clickPanels[i].setBackground(Color.yellow);
+		clickPanels[i].setLocation(randomX, randomY);
+		clickPanels[i].setSize(50, 50);
+		clickPanels[i].addMouseListener(this);
+		add(clickPanels[i]);
+		}
 
 	}
 
@@ -68,12 +76,14 @@ public class Mode1Panel extends JPanel implements ActionListener, MouseListener 
 
 		randomX = random.nextInt(501);
 		randomY = random.nextInt(501);
-		int randomCol = random.nextInt(colorList.length);
-		if (e.getSource() == clickPanel) {
+		int randomCol = random.nextInt(colours.length);
+		for (int i=0; i < squares; i++) {
+		if (e.getSource() == clickPanels[i]) {
 			scoreVal += 1;
 			score.setText("Score: " + scoreVal);
-			clickPanel.setLocation(randomX, randomY);
-			clickPanel.setBackground(colorList[randomCol]);
+			clickPanels[i].setLocation(randomX, randomY);
+			clickPanels[i].setBackground(colours[randomCol]);
+		}
 		}
 
 	}
