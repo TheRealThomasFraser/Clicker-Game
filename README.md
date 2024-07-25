@@ -1,6 +1,8 @@
 <h1> Clicker Game </h1>
 
-<h2> This project is a WIP! ⚠️</h2>
+<h2> This project is Complete! ✅</h2>
+
+<p> Some code cleanup as well as comments are still needed, but the game is working as intended. I may also come back to add additional features.
 
 <h2> About 💬 </h2>
 

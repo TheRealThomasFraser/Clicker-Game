@@ -59,7 +59,7 @@ public class SettingsPanel extends JPanel implements ActionListener{
 			cpane.add(m1p);
 		}
 		else if (mode == 2) {
-			Mode2Panel m2p = new Mode2Panel(cpane);
+			Mode2Panel m2p = new Mode2Panel(cpane, squares, colours, timeVal);
 			cpane.add(m2p);
 	}
 		cpane.revalidate();

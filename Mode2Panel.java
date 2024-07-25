@@ -9,30 +9,30 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class Mode2Panel extends JPanel implements ActionListener, MouseListener {
 	
-	private JPanel hoverPanel, statPanel;
+	JPanel[] hoverPanels;
+	private JPanel statPanel;
 	private JLabel score, time;
-	private Color colorList[] = { Color.cyan, Color.yellow, Color.green, Color.magenta, Color.orange, Color.red,
-			Color.blue, Color.pink};
-	private int scoreVal, timeVal, randomX, randomY;
+	private Color colours[];
+	private int scoreVal, timeVal, randomX, randomY, squares;
 	private Timer timer, timeUpdate;
 	private Container cpane;
 	static Random random = new Random();
 	
-	Mode2Panel(Container cpane) {
-		
+	Mode2Panel(Container cpane, int squares, Color[] colours, int timeVal) {
+		this.colours = colours;
 		this.cpane = cpane;
-
+		this.squares = squares;
+		this.timeVal = timeVal;
+		hoverPanels = new JPanel[squares];
 		this.setLayout(null);
-		this.setSize(575, 575);
+		this.setSize(cpane.getWidth(), cpane.getHeight());
 		this.setBackground(Color.black);
-		randomX = random.nextInt(501);
-		randomY = random.nextInt(501);
+		randomX = random.nextInt(cpane.getWidth()-50);
+		randomY = random.nextInt(cpane.getHeight()-50);
 		scoreVal = 0;
-        timeVal = 60;
-		
         statPanel = new JPanel();
 		statPanel.setLayout(null);
-		statPanel.setSize(100, 100);
+		statPanel.setSize(200, 100);
 		statPanel.setBackground(Color.black);
 add(statPanel);
 	
@@ -47,22 +47,28 @@ add(statPanel);
  time = new JLabel();
 		time.setForeground(Color.white);
         time.setLocation(0, 50);
-        time.setSize(100, 50);
+        time.setSize(200, 50);
         time.setFont(new Font("Serif", Font.PLAIN, 20));
-        time.setText("Time: " + timeVal);
-        statPanel.add(time);
-        
-        timer = new Timer(60000, this );
-        timer.start();
-        timeUpdate = new Timer(1000, this);
-        timeUpdate.start();
+        if (timeVal == 0) {
+			time.setText("Time: Unlimited");
+		}
+		else {
+		time.setText("Time: " + timeVal);
+		timer = new Timer((timeVal * 1000), this);
+		timer.start();
+		timeUpdate = new Timer(1000, this);
+		timeUpdate.start();
+		}
+		statPanel.add(time);
 	
-	hoverPanel = new JPanel();
-    hoverPanel.setBackground(Color.yellow);
-    hoverPanel.setLocation(randomX, randomY);
-    hoverPanel.setSize(50, 50);
-    hoverPanel.addMouseListener(this);
-    add(hoverPanel);
+		for (int i=0; i < squares; i++) {
+			hoverPanels[i] = new JPanel();
+			hoverPanels[i].setBackground(Color.yellow);
+    hoverPanels[i].setLocation(randomX, randomY);
+    hoverPanels[i].setSize(50, 50);
+    hoverPanels[i].addMouseListener(this);
+    add(hoverPanels[i]);
+		}
 	}
 
 	@Override
@@ -74,8 +80,6 @@ add(statPanel);
 		}
 		else if(e.getSource() == timer) {
 			timer.stop();
-			cpane.add(new ModeSelectPanel());
-			cpane.remove(this);
 			cpane.add(new SettingsPanel(cpane));
 			cpane.remove(this);
 			cpane.revalidate();
@@ -104,14 +108,17 @@ add(statPanel);
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		randomX = random.nextInt(501);
-		randomY = random.nextInt(501);
-		int randomCol = random.nextInt(colorList.length);
-		if(e.getSource() == hoverPanel) {
+		randomX = random.nextInt(cpane.getWidth()-50);
+		randomY = random.nextInt(cpane.getHeight()-50);
+		int randomCol = random.nextInt(colours.length);
+		for (int i=0; i < squares; i++) {
+		if (e.getSource() == hoverPanels[i]) {
 			scoreVal += 1;
 			score.setText("Score: " + scoreVal);
-			hoverPanel.setLocation(randomX, randomY);
-			hoverPanel.setBackground(colorList[randomCol]);
+			hoverPanels[i].setLocation(randomX, randomY);
+			hoverPanels[i].setBackground(colours[randomCol]);
+		
+		}
 		}
 		
 	}

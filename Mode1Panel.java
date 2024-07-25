@@ -24,10 +24,10 @@ public class Mode1Panel extends JPanel implements ActionListener, MouseListener 
 		this.timeVal = timeVal;
 		clickPanels = new JPanel[squares];
 		this.setLayout(null);
-		this.setSize(575, 575);
+		this.setSize(cpane.getWidth(), cpane.getHeight());
 		this.setBackground(Color.black);
-		randomX = random.nextInt(501);
-		randomY = random.nextInt(501);
+		randomX = random.nextInt(cpane.getWidth()-50);
+		randomY = random.nextInt(cpane.getHeight()-50);
 		scoreVal = 0;
 
 		statPanel = new JPanel();
@@ -74,8 +74,8 @@ public class Mode1Panel extends JPanel implements ActionListener, MouseListener 
 
 	public void mousePressed(MouseEvent e) {
 
-		randomX = random.nextInt(501);
-		randomY = random.nextInt(501);
+		randomX = random.nextInt(cpane.getWidth()-50);
+		randomY = random.nextInt(cpane.getHeight()-50);
 		int randomCol = random.nextInt(colours.length);
 		for (int i=0; i < squares; i++) {
 		if (e.getSource() == clickPanels[i]) {
