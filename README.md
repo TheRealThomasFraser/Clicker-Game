@@ -1,10 +1,23 @@
-<h1> Click King</h1>
+<h1> Clicker Game </h1>
 
-A Java Swing game, where the user has to click squares to earn points in a time limit.
+<h2> This project is a WIP! ⚠️</h2>
 
-<h2> The game, when done should allow the user to: </h2>
+<h2> About 💬 </h2>
 
-- Select the colours of the squares, the time limit, the amount of squares and the mode to play in.
-- ...Play the game
+<p> This game is a personal project I started while learning about GUIs in my first year of university. The aim is to solidify my knowledge of Java GUIs and create a simple game where you earn points by clicking or hovering over a square. </p>
 
- :)
+<h2> Usage 📊 </h2>
+
+<ol> 
+ <li> Pick your preferred settings </li>
+ <li> Click on or hover over the square(s) to earn points </li>
+</ol>
+
+<h2> Features 🗒️ </h2>
+
+<ul>
+ <li> Customisable colours </li>
+ <li> Customisable time </li>
+ <li> Customisable square amount </li>
+ <li> Customisable gamemode</li>
+</ul>
